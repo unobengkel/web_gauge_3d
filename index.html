@@ -3,75 +3,121 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Widget Gauge Suhu 3D</title>
-
-    <!-- Tailwind CSS -->
-    <script src="https://cdn.tailwindcss.com"></script>
-
-    <!-- Three.js (Required for GaugeWidget) -->
+    <title>Contoh 2 - Custom Warna & Slider Event</title>
+    
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
-
-    <!-- Gauge Widget CSS -->
-    <link rel="stylesheet" href="asset/widgetgauge/gauge.css">
-
-    <!-- Application CSS -->
-    <link rel="stylesheet" href="asset/web/main.css">
-
-    <!-- Gauge Widget JS -->
-    <script src="asset/widgetgauge/gauge.js"></script>
-
-    <!-- Application JS -->
-    <script src="asset/web/main.js"></script>
+    <link rel="stylesheet" href="../asset/widgetgauge/gauge.css">
+    <script src="../asset/widgetgauge/gauge.js"></script>
+    
+    <style>
+        body { 
+            font-family: sans-serif; 
+            display: flex; 
+            flex-direction: column; 
+            align-items: center; 
+            justify-content: center; 
+            min-height: 100vh; 
+            background-color: #1a202c; 
+            color: white; 
+            margin: 0; 
+            padding: 20px;
+        }
+        .gauge-wrapper { 
+            width: 400px; 
+            height: 300px; 
+            position: relative; 
+            background: #2d3748; 
+            border-radius: 10px; 
+            padding-top: 20px; 
+            box-shadow: 0 10px 15px -3px rgba(0,0,0,.1);
+        }
+        .value-display { 
+            position: absolute; 
+            bottom: 20%; 
+            left: 50%; 
+            transform: translateX(-50%); 
+            font-size: 2.5rem; 
+            font-weight: bold; 
+            text-shadow: 0 0 10px rgba(255,255,255,0.5); 
+        }
+        .controls { 
+            margin-top: 30px; 
+            display: flex; 
+            flex-direction: column; 
+            gap: 15px; 
+            width: 300px; 
+            background: #2d3748;
+            padding: 20px;
+            border-radius: 8px;
+        }
+        input[type=range] { width: 100%; cursor: pointer; }
+        button { 
+            padding: 10px 15px; 
+            background-color: #4CAF50; 
+            color: white; 
+            border: none; 
+            border-radius: 5px; 
+            cursor: pointer; 
+            font-size: 1rem; 
+            flex: 1;
+        }
+        button.stop { background-color: #f44336; }
+        button:active { opacity: 0.8; }
+    </style>
 </head>
-<body class="min-h-screen flex items-center justify-center p-4">
+<body>
+    <h2>Widget Gauge Mode Gelap & Slider</h2>
+    
+    <div class="gauge-wrapper" id="custom-gauge">
+        <div class="value-display"><span id="display-val">0</span>%</div>
+    </div>
 
-    <!-- Main Container -->
-    <div class="main-container">
-
-        <!-- 3D Canvas Area -->
-        <div class="gauge-canvas-area" id="gauge-container">
-            <!-- Container for floating HTML Labels -->
-            <div id="labels-container" class="labels-layer"></div>
-
-            <!-- Value Display Overlay -->
-            <div class="value-overlay">
-                <div class="value-number">
-                    <span id="value-display" class="value-text">0</span>
-                    <span class="value-unit">°C</span>
-                </div>
-                <span class="value-label">Indikator Suhu</span>
-            </div>
-        </div>
-
-        <!-- Control Area -->
-        <div class="control-area">
-            <div class="control-header">
-                <div>
-                    <h2 class="control-title">Pengaturan Suhu</h2>
-                    <p class="control-subtitle">
-                        Mode Saat Ini: <span id="mode-badge" class="mode-badge manual">Manual</span>
-                    </p>
-                </div>
-                <button id="toggle-btn" class="toggle-button manual-mode">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                        <path d="M21.5 2v6h-6M2.5 22v-6h6M2 11.5a10 10 0 0 1 18.8-4.3M22 12.5a10 10 0 0 1-18.8 4.2"/>
-                    </svg>
-                    Simulasi Acak
-                </button>
-            </div>
-
-            <!-- Slider Container -->
-            <div id="slider-container" class="slider-container">
-                <div class="slider-labels">
-                    <span class="slider-label-green">0°C</span>
-                    <span class="slider-label-green">30°C</span>
-                    <span class="slider-label-yellow">50°C</span>
-                    <span class="slider-label-red">100°C</span>
-                </div>
-                <input type="range" id="value-slider" min="0" max="100" value="0">
-            </div>
+    <div class="controls">
+        <label style="font-weight: bold;">Kendali Manual (0 - 100):</label>
+        <input type="range" id="gauge-slider" min="0" max="100" value="0">
+        
+        <div style="display: flex; gap: 10px; justify-content: center; margin-top: 10px;">
+            <button id="btn-start">🚀 Mulai Acak</button>
+            <button id="btn-stop" class="stop">⏹ Berhenti</button>
         </div>
     </div>
 
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // Widget dengan Warna Custom (menggantikan warna standar hijau merah)
+            const gauge = new GaugeWidget('#custom-gauge', {
+                minValue: 0,
+                maxValue: 100,
+                initialValue: 0,
+                colors: { // Gunakan format warna hexadecimal angka
+                    low: 0x3b82f6,  // Biru (0 - 30)
+                    mid: 0x8b5cf6, // Ungu  (30 - 50)
+                    high: 0xec4899 // Pink  (50 - 100)
+                }
+            });
+
+            const displayEl = document.getElementById('display-val');
+            const sliderEl = document.getElementById('gauge-slider');
+
+            // Binding dengan DOM Element secara Instant
+            gauge.bindToDisplay(displayEl);
+            gauge.bindToSlider(sliderEl);
+
+            // Callback Event saat berubah
+            gauge.onValueChange((val) => {
+                sliderEl.value = Math.round(val);
+            });
+
+            // Tombol Kontrol Simulasi
+            document.getElementById('btn-start').addEventListener('click', () => {
+                gauge.startSimulation(1000); // Simulasi setiap 1.5 detik
+            });
+
+            document.getElementById('btn-stop').addEventListener('click', () => {
+                gauge.stopSimulation();
+                gauge.setValue(0); // Kembali ke angka 0
+            });
+        });
+    </script>
 </body>
 </html>
