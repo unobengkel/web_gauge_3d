@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Widget Gauge Suhu 3D</title>
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- Three.js (Required for GaugeWidget) -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+
+    <!-- Gauge Widget CSS -->
+    <link rel="stylesheet" href="asset/widgetgauge/gauge.css">
+
+    <!-- Application CSS -->
+    <link rel="stylesheet" href="asset/web/main.css">
+
+    <!-- Gauge Widget JS -->
+    <script src="asset/widgetgauge/gauge.js"></script>
+
+    <!-- Application JS -->
+    <script src="asset/web/main.js"></script>
+</head>
+<body class="min-h-screen flex items-center justify-center p-4">
+
+    <!-- Main Container -->
+    <div class="main-container">
+
+        <!-- 3D Canvas Area -->
+        <div class="gauge-canvas-area" id="gauge-container">
+            <!-- Container for floating HTML Labels -->
+            <div id="labels-container" class="labels-layer"></div>
+
+            <!-- Value Display Overlay -->
+            <div class="value-overlay">
+                <div class="value-number">
+                    <span id="value-display" class="value-text">0</span>
+                    <span class="value-unit">°C</span>
+                </div>
+                <span class="value-label">Indikator Suhu</span>
+            </div>
+        </div>
+
+        <!-- Control Area -->
+        <div class="control-area">
+            <div class="control-header">
+                <div>
+                    <h2 class="control-title">Pengaturan Suhu</h2>
+                    <p class="control-subtitle">
+                        Mode Saat Ini: <span id="mode-badge" class="mode-badge manual">Manual</span>
+                    </p>
+                </div>
+                <button id="toggle-btn" class="toggle-button manual-mode">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M21.5 2v6h-6M2.5 22v-6h6M2 11.5a10 10 0 0 1 18.8-4.3M22 12.5a10 10 0 0 1-18.8 4.2"/>
+                    </svg>
+                    Simulasi Acak
+                </button>
+            </div>
+
+            <!-- Slider Container -->
+            <div id="slider-container" class="slider-container">
+                <div class="slider-labels">
+                    <span class="slider-label-green">0°C</span>
+                    <span class="slider-label-green">30°C</span>
+                    <span class="slider-label-yellow">50°C</span>
+                    <span class="slider-label-red">100°C</span>
+                </div>
+                <input type="range" id="value-slider" min="0" max="100" value="0">
+            </div>
+        </div>
+    </div>
+
+</body>
+</html>

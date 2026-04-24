@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tutorial Penggunaan Widget Gauge 3D</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f9fafb;
+        }
+        h1, h2, h3 { color: #111827; }
+        code {
+            background-color: #e5e7eb;
+            padding: 2px 5px;
+            border-radius: 4px;
+            font-family: monospace;
+        }
+        pre {
+            background-color: #1f2937;
+            color: #f3f4f6;
+            padding: 15px;
+            border-radius: 8px;
+            overflow-x: auto;
+        }
+        .step {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+        }
+        .note {
+            background-color: #fffbeb;
+            border-left: 4px solid #f59e0b;
+            padding: 10px;
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Tutorial Web HTML: Setup Gauge Widget 3D</h1>
+    <p>Panduan langkah demi langkah untuk mengintegrasikan Widget Gauge 3D (Three.js) ke dalam halaman web HTML Anda.</p>
+
+    <div class="step">
+        <h2>Langkah 1: Include Dependencies (JS & CSS)</h2>
+        <p>Anda memerlukan library <code>Three.js</code> untuk merender 3D, beserta CSS dan JS bawaan dari widget ini.</p>
+        <p>Tambahkan kode berikut di dalam tag <code>&lt;head&gt;</code> HTML Anda:</p>
+<pre>&lt;!-- Three.js (wajib) --&gt;
+&lt;script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"&gt;&lt;/script&gt;
+
+&lt;!-- CSS Widget Gauge --&gt;
+&lt;link rel="stylesheet" href="asset/widgetgauge/gauge.css"&gt;
+
+&lt;!-- JS Widget Gauge --&gt;
+&lt;script src="asset/widgetgauge/gauge.js"&gt;&lt;/script&gt;</pre>
+    </div>
+
+    <div class="step">
+        <h2>Langkah 2: Buat Wadah (Container) HTML</h2>
+        <p>Siapkan elemen HTML untuk menampung widget 3D ini. Beri ukuran spesifik (width dan height).</p>
+<pre>&lt;div id="gauge-container" style="width: 300px; height: 250px; position: relative;"&gt;
+    &lt;!-- Tempat teks display nilai (opsional) --&gt;
+    &lt;div style="position: absolute; bottom: 10%; width: 100%; text-align: center;"&gt;
+        &lt;span id="nilai"&gt;0&lt;/span&gt;°C
+    &lt;/div&gt;
+&lt;/div&gt;</pre>
+    </div>
+
+    <div class="step">
+        <h2>Langkah 3: Inisialisasi Plugin dengan JavaScript</h2>
+        <p>Panggil class <code>GaugeWidget</code> di dalam script Anda (sebaiknya setelah penataan DOM selesai / <code>DOMContentLoaded</code>).</p>
+<pre>&lt;script&gt;
+document.addEventListener('DOMContentLoaded', () =&gt; {
+    // Inisialisasi widget
+    const gauge = new GaugeWidget('#gauge-container', {
+        minValue: 0,
+        maxValue: 100,
+        initialValue: 0,
+        // (Opsi) Ubah warna
+        /* colors: {
+            low: 0x10b981,
+            mid: 0xf59e0b,
+            high: 0xef4444
+        } */
+    });
+
+    // Opsional: Hubungkan display teks ke gauge
+    gauge.bindToDisplay(document.getElementById('nilai'));
+    
+    // Set nilai baru secara terprogram
+    gauge.setValue(45); // menggunakan animasi
+});
+&lt;/script&gt;</pre>
+    </div>
+
+    <div class="step">
+        <h2>Langkah 4: Fitur Lanjutan</h2>
+        <p>Anda dapat mengontrol widget secara lebih dinamis menggunakan API yang disediakan.</p>
+        
+        <h3>Hubungkan ke Slider</h3>
+        <p>Bisa otomatis mengubah nilai widget mengikuti nilai slider input.</p>
+<pre>gauge.bindToSlider(document.getElementById('my-slider'));</pre>
+
+        <h3>Mode Simulasi</h3>
+        <p>Dapat berjalan acak untuk melihat animasi warna.</p>
+<pre>gauge.startSimulation(2000); // ganti nilai setiap 2000ms
+// gauge.stopSimulation(); // untuk berhenti</pre>
+        
+        <h3>Merespon Perubahan via Event</h3>
+<pre>gauge.onValueChange(function(newVal, oldVal) {
+    console.log("Nilai berubah dari", oldVal, "ke", newVal);
+});</pre>
+    </div>
+
+</body>
+</html>

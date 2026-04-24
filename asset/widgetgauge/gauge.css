@@ -1,0 +1,137 @@
+/**
+ * GaugeWidget Styles
+ * Styles for the reusable 3D gauge component
+ */
+
+/* Gauge Container */
+.gauge-container {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(180deg, #0f172a 0%, #1e293b 100%);
+    border-radius: 1rem;
+    overflow: hidden;
+}
+
+.gauge-container canvas {
+    display: block;
+}
+
+/* Value Display */
+.gauge-value-display {
+    position: absolute;
+    bottom: 1.5rem;
+    left: 0;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-end;
+    text-align: center;
+    pointer-events: none;
+    z-index: 10;
+}
+
+.gauge-value-number {
+    font-size: 3.5rem;
+    font-weight: 800;
+    letter-spacing: -0.05em;
+    color: white;
+    text-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+    line-height: 1;
+}
+
+.gauge-value-unit {
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: #94a3b8;
+    margin-top: 0.25rem;
+    margin-left: 0.25rem;
+}
+
+.gauge-value-label {
+    font-size: 0.75rem;
+    color: #64748b;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    margin-top: 0.5rem;
+}
+
+/* Labels Container */
+.gauge-labels-container {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    z-index: 5;
+}
+
+.gauge-label {
+    position: absolute;
+    transform: translate(-50%, -50%);
+    font-size: 1rem;
+    font-weight: 700;
+    background: rgba(15, 23, 42, 0.8);
+    padding: 0.25rem 0.5rem;
+    border-radius: 0.5rem;
+    border: 1px solid rgba(51, 65, 85, 0.5);
+    backdrop-filter: blur(4px);
+}
+
+.gauge-label-green {
+    color: #34d399;
+}
+
+.gauge-label-yellow {
+    color: #fbbf24;
+}
+
+.gauge-label-red {
+    color: #fb7185;
+}
+
+/* Responsive adjustments */
+@media (max-width: 640px) {
+    .gauge-value-number {
+        font-size: 2.5rem;
+    }
+
+    .gauge-value-unit {
+        font-size: 1.25rem;
+    }
+
+    .gauge-label {
+        font-size: 0.875rem;
+        padding: 0.2rem 0.4rem;
+    }
+}
+
+/* Animation states */
+.gauge-animating {
+    transition: opacity 0.3s ease;
+}
+
+.gauge-disabled {
+    opacity: 0.5;
+    pointer-events: none;
+}
+
+/* Glow effects */
+.gauge-glow {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 60%;
+    height: 60%;
+    background: radial-gradient(circle, rgba(16, 185, 129, 0.15) 0%, transparent 70%);
+    pointer-events: none;
+    z-index: 1;
+}
+
+.gauge-glow.glow-yellow {
+    background: radial-gradient(circle, rgba(245, 158, 11, 0.15) 0%, transparent 70%);
+}
+
+.gauge-glow.glow-red {
+    background: radial-gradient(circle, rgba(239, 68, 68, 0.15) 0%, transparent 70%);
+}

@@ -1,0 +1,287 @@
+/**
+ * Main Application Styles
+ * Styles for the temperature gauge demo page
+ */
+
+/* Base styles */
+body {
+    background-color: #0f172a; /* Slate 900 */
+    color: white;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+/* Main container */
+.main-container {
+    width: 100%;
+    max-width: 42rem; /* max-w-2xl */
+    background-color: #1e293b; /* Slate 800 */
+    border-radius: 1.5rem;
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+    overflow: hidden;
+    border: 1px solid #334155; /* Slate 700 */
+}
+
+/* Canvas area */
+.gauge-canvas-area {
+    position: relative;
+    width: 100%;
+    height: 20rem; /* h-80 */
+    background-color: #0f172a; /* Slate 900 */
+    overflow: hidden;
+}
+
+@media (min-width: 640px) {
+    .gauge-canvas-area {
+        height: 24rem; /* sm:h-96 */
+    }
+}
+
+/* Value display overlay */
+.value-overlay {
+    position: absolute;
+    bottom: 1.5rem;
+    left: 0;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-end;
+    text-align: center;
+    pointer-events: none;
+    z-index: 20;
+}
+
+.value-number {
+    display: flex;
+    align-items: flex-start;
+}
+
+.value-text {
+    font-size: 3.5rem;
+    font-weight: 800;
+    letter-spacing: -0.05em;
+    color: white;
+    text-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+    line-height: 1;
+}
+
+.value-unit {
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: #94a3b8;
+    margin-top: 0.25rem;
+    margin-left: 0.25rem;
+}
+
+.value-label {
+    color: #64748b;
+    font-size: 0.875rem;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    margin-top: 0.25rem;
+}
+
+/* Labels container */
+.labels-layer {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    z-index: 10;
+}
+
+/* Control area */
+.control-area {
+    padding: 1.5rem;
+}
+
+@media (min-width: 640px) {
+    .control-area {
+        padding: 2rem;
+    }
+}
+
+.control-header {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1.5rem;
+    gap: 1rem;
+}
+
+@media (min-width: 640px) {
+    .control-header {
+        flex-direction: row;
+    }
+}
+
+.control-title {
+    font-size: 1.25rem;
+    font-weight: 600;
+}
+
+.control-subtitle {
+    font-size: 0.875rem;
+    color: #64748b;
+}
+
+.mode-badge {
+    display: inline-block;
+    padding: 0.25rem 0.5rem;
+    border-radius: 0.25rem;
+    font-size: 0.75rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    margin-left: 0.25rem;
+}
+
+.mode-badge.manual {
+    background-color: rgba(59, 130, 246, 0.2);
+    color: #60a5fa;
+}
+
+.mode-badge.random {
+    background-color: rgba(168, 85, 247, 0.2);
+    color: #a78bfa;
+}
+
+/* Toggle button */
+.toggle-button {
+    padding: 0.625rem 1.5rem;
+    border-radius: 0.75rem;
+    font-weight: 500;
+    transition: all 0.2s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    width: 100%;
+}
+
+@media (min-width: 640px) {
+    .toggle-button {
+        width: auto;
+    }
+}
+
+.toggle-button.manual-mode {
+    background-color: #4f46e5; /* Indigo 600 */
+    box-shadow: 0 10px 15px -3px rgba(99, 102, 241, 0.3);
+}
+
+.toggle-button.manual-mode:hover {
+    background-color: #6366f1; /* Indigo 500 */
+}
+
+.toggle-button.manual-mode:active {
+    background-color: #4338ca; /* Indigo 700 */
+}
+
+.toggle-button.random-mode {
+    background-color: #9333ea; /* Purple 600 */
+    box-shadow: 0 10px 15px -3px rgba(147, 51, 234, 0.3);
+}
+
+.toggle-button.random-mode:hover {
+    background-color: #a855f7; /* Purple 500 */
+}
+
+.toggle-button.random-mode:active {
+    background-color: #86198f; /* Purple 700 */
+}
+
+.toggle-button svg {
+    flex-shrink: 0;
+}
+
+/* Slider container */
+.slider-container {
+    transition: opacity 0.3s;
+}
+
+.slider-container.disabled {
+    opacity: 0.4;
+    pointer-events: none;
+}
+
+/* Slider customization */
+input[type="range"] {
+    -webkit-appearance: none;
+    background: transparent;
+    width: 100%;
+}
+
+input[type="range"]::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    height: 20px;
+    width: 20px;
+    border-radius: 50%;
+    background: #3b82f6;
+    cursor: pointer;
+    margin-top: -8px;
+    box-shadow: 0 0 10px rgba(59, 130, 246, 0.5);
+    transition: transform 0.1s;
+}
+
+input[type="range"]::-webkit-slider-thumb:hover {
+    transform: scale(1.1);
+}
+
+input[type="range"]::-webkit-slider-thumb:active {
+    transform: scale(0.95);
+}
+
+input[type="range"]::-webkit-slider-runnable-track {
+    width: 100%;
+    height: 6px;
+    cursor: pointer;
+    background: #334155;
+    border-radius: 3px;
+}
+
+input[type="range"]:focus {
+    outline: none;
+}
+
+/* Firefox slider */
+input[type="range"]::-moz-range-thumb {
+    height: 20px;
+    width: 20px;
+    border-radius: 50%;
+    background: #3b82f6;
+    cursor: pointer;
+    border: none;
+    box-shadow: 0 0 10px rgba(59, 130, 246, 0.5);
+}
+
+input[type="range"]::-moz-range-track {
+    width: 100%;
+    height: 6px;
+    cursor: pointer;
+    background: #334155;
+    border-radius: 3px;
+}
+
+/* Slider labels */
+.slider-labels {
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.75rem;
+    font-weight: 500;
+    color: #64748b;
+    margin-bottom: 0.5rem;
+    padding-left: 0.25rem;
+    padding-right: 0.25rem;
+}
+
+.slider-label-green {
+    color: #10b981;
+}
+
+.slider-label-yellow {
+    color: #f59e0b;
+}
+
+.slider-label-red {
+    color: #f43f5e;
+}
