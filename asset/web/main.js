@@ -73,7 +73,7 @@ function setupEventListeners() {
     DOM.slider.addEventListener('input', (e) => {
         if (!AppState.isRandomMode) {
             const value = parseFloat(e.target.value);
-            AppState.gauge.setValueInstant(value);
+            AppState.gauge.setValue(value,false);
             DOM.valueDisplay.textContent = value;
         }
     });
