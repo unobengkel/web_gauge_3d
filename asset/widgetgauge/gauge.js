@@ -271,10 +271,10 @@ class GaugeWidget {
      * @param {number} value - New value for the gauge
      * @param {boolean} animate - Whether to animate the transition
      */
-    setValue(value, animate = true) {
+    setValue(value, no_animate = true) {
         const oldValue = this.currentValue;
 
-        if (animate) {
+        if (no_animate) {
             this._targetValue = value;
             this._animating = true;
         } else {
@@ -297,7 +297,7 @@ class GaugeWidget {
      * @param {number} value
      */
     setValueInstant(value) {
-        this.setValue(value, false);
+        this.setValue(value, true);
     }
 
     /**
@@ -352,7 +352,7 @@ class GaugeWidget {
         if (!sliderElement) return;
 
         sliderElement.addEventListener('input', (e) => {
-            this.setValueInstant(parseFloat(e.target.value));
+            this.setValue(parseFloat(e.target.value),false);
         });
     }
 
@@ -366,8 +366,8 @@ class GaugeWidget {
         }
 
         this._simulationInterval = setInterval(() => {
-            const newValue = Math.random() * 100;
-            this.setValue(newValue, true);
+            const newValue = Math.round(Math.random() * 100);
+            this.setValue(newValue, false);
         }, interval);
     }
 
