@@ -271,7 +271,7 @@ class GaugeWidget {
      * @param {number} value - New value for the gauge
      * @param {boolean} animate - Whether to animate the transition
      */
-    setValue(value, no_animate = true) {
+    setValue(value, no_animate = false) {
         const oldValue = this.currentValue;
 
         if (no_animate) {
